@@ -1,4 +1,7 @@
+data.seattle.gov API Data:
+
 http://data.seattle.gov/resource/3k2p-39jp.json
 token: DpnZlymDFh48LN2JHFUGyM7et
 
-Google API Key: AIzaSyAGL4l6AvrKxqUdGyc2yRvrMDw3cJ4eZKY
+Google Maps API Data:
+token: AIzaSyAGL4l6AvrKxqUdGyc2yRvrMDw3cJ4eZKY
