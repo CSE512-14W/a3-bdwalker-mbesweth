@@ -9,13 +9,13 @@ function moveIn(e){
 	console.log("in");
 	if(!moused){
 		$("#control_overlay").animate({
-			right: "10px"
+			right: "0px"
 		});
 		$("#control").animate({
-			right: "10px"
+			right: "0px"
 		});
 		$("#grab").animate({
-			right: "285px"
+			right: "275px"
 		});
 		moused = true;
 	}
