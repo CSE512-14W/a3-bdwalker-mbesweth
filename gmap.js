@@ -3,6 +3,7 @@ function init () {
         var TOKEN = "DpnZlymDFh48LN2JHFUGyM7et"
         var QUERY = "latitude,longitude";
         var LIMIT = 100;
+        var locations = [];
 
         
         var style = [
@@ -71,6 +72,11 @@ function init () {
         d3.json(URL + "?$select=" + QUERY + "&$limit=" + LIMIT + "&$$app_token=" + TOKEN
           , function (data) {
 
+          for (var i = 0; i < data.length; i++)
+            locations.push(data[i]);
+
+          shootBlanks();
+
           // Create Google Maps overlay
           var overlay = new google.maps.OverlayView();
           
@@ -105,6 +111,24 @@ function init () {
           }
           overlay.setMap(map);
         });
+
+        function shootBlanks(){
+          var marker;
+          for(var i = 0; i < locations.length; i++){
+            var myLatlng = new google.maps.LatLng(locations[i].latitude, locations[i].longitude);
+              marker = new google.maps.Marker({
+              position: myLatlng,
+              map: map,
+              icon: 'blank.png'
+            });
+            google.maps.event.addListener(marker, 'mouseover', function(){
+              console.log('chill mouseover');
+            });
+          }
+        }
+
       }
 
       google.maps.event.addDomListener(window, 'load', init);
+
+

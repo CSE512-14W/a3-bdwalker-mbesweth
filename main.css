@@ -42,7 +42,7 @@ div.bar {
 	opacity:.7;
 }
 
-#text {
+#text, h1, ul {
 	color:white;
 	opacity:1;
 }
