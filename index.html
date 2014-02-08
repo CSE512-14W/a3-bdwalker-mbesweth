@@ -4,133 +4,28 @@
 		 <meta charset="utf-8">
       <title>D3 Test</title>
       <link rel="stylesheet" type="text/css" href="main.css">
-      <script type="text/javascript" src="d3.v3/d3.v3.js"></script>
+      <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+      <script src="http://d3js.org/d3.v3.min.js"></script>
       <script type="text/javascript"
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGL4l6AvrKxqUdGyc2yRvrMDw3cJ4eZKY&sensor=false">
       </script>
+      <script type="text/javascript" src="gmap.js"></script>
+      <script type="text/javascript" src="ui.js"></script>
+
       
 	</head>
 	<body>
     <div id="control">
     </div>
-    <div id="control_overlay">
-    <span id="text">
-      Controls will go here. 
-    </span>
+    <div id='control_holder'>
+      <img id='grab' alt='grab' src='grab.png'/>
+      <div id="control_overlay">
+        <span id="text">
+          Controls will go here. 
+        </span>
+      </div>
     </div>
     <div id="map-canvas">
     </div>
-    <script type="text/javascript">
-      function init () {
-        var URL = "http://data.seattle.gov/resource/3k2p-39jp.json";
-        var TOKEN = "DpnZlymDFh48LN2JHFUGyM7et"
-        var QUERY = "latitude,longitude";
-        var LIMIT = 100;
-
-        
-        var style = [
-        {
-          "featureType": "water",
-          "stylers": [
-            { "color": "#000000" }
-          ]
-        },{
-          "featureType": "landscape",
-          "stylers": [
-            { "color": "#393939" }
-          ]
-        },{
-          "featureType": "road",
-          "stylers": [
-            { "color": "#6e6f6e" }
-          ]
-        },{
-          "featureType": "administrative.neighborhood",
-          "stylers": [
-            { "visibility": "off" }
-          ]
-        },{
-          "featureType": "administrative.locality",
-          "stylers": [
-            { "visibility": "off" }
-          ]
-        },{
-          "featureType": "poi",
-          "stylers": [
-            { "visibility": "off" }
-          ]
-        },{
-          "featureType": "transit.line",
-          "stylers": [
-            { "visibility": "off" }
-          ]
-        },{
-          "featureType": "road",
-          "stylers": [
-            { "visibility": "simplified" }
-          ]
-        },{
-          "elementType": "labels",
-          "stylers": [
-            { "visibility": "off" }
-          ]
-        }];
-
-        var styledMap = new google.maps.StyledMapType(style, {name: "Seattle Styled"});
-
-        var mapOptions = 
-        {
-          zoom: 12,
-          center: new google.maps.LatLng(47.6097, -122.33),
-          mapTypeControlOptions: {
-            mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
-          }
-        };
-
-        var map = new google.maps.Map(d3.select("#map-canvas").node(), mapOptions);
-        map.mapTypes.set('map_style', styledMap);
-        map.setMapTypeId('map_style');
-
-        d3.json(URL + "?$select=" + QUERY + "&$limit=" + LIMIT + "&$$app_token=" + TOKEN
-          , function (data) {
-
-          // Create Google Maps overlay
-          var overlay = new google.maps.OverlayView();
-          
-          overlay.onAdd = function() {
-            var layer = d3.select(this.getPanes().overlayLayer).append("div").attr("class", "station");
-
-            overlay.draw = function() {
-              var projection = this.getProjection();
-              var padding = 10;
-
-              var marker = layer.selectAll("svg")
-                .data(d3.entries(data))
-                .each(transform)
-                .enter()
-                .append("svg:svg")
-                .each(transform)
-                .attr("class", "stations");
-
-              marker.append("svg:circle")
-                .attr("r", 7)
-                .attr("cx", padding)
-                .attr("cy", padding);
-
-              function transform(d) {
-                d = new google.maps.LatLng(d.value.latitude, d.value.longitude);
-                d = projection.fromLatLngToDivPixel(d);
-                return d3.select(this)
-                  .style("left", (d.x - padding) + "px")
-                  .style("top", (d.y - padding) + "px");
-              }
-            }
-          }
-          overlay.setMap(map);
-        });
-      }
-
-      google.maps.event.addDomListener(window, 'load', init);
-    </script>
     </body>
 </html>

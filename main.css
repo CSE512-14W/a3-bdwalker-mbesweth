@@ -6,9 +6,15 @@ div.bar {
 	margin-right:2px;
 }
 
+#grab{
+	width: 70px;
+	position: absolute;
+	bottom: 326px;
+	right: 285px; 
+}
 
 
-#control_overlay, #control {
+#control_overlay, #control, #control_holder {
 	padding-left: 20px;
 	padding-top: 20px;
 	bottom: 100px;
@@ -18,6 +24,12 @@ div.bar {
 	position: absolute;
 	z-index: 10;
 	border-radius:20px;
+}
+
+#control_holder{
+	height: 100%;
+	bottom: 0px;
+	right: 0px;
 }
 
 #control {
