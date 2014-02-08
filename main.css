@@ -39,10 +39,10 @@ html, body, #map-canvas {
 }
 
 .stations circle {
-  fill: yellow;
-  stroke: white;
+  fill: rgba(255, 255, 40, .5);
+  stroke: rgba(255, 155, 78, 1);
   alpha: 50%;
-  stroke-width: 1.5px;
+  stroke-width: 2.5px;
 }
 
 .stations, .stations svg {
