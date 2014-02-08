@@ -5,6 +5,10 @@
 
 </style>
 <body>
+	
+	<link rel="stylesheet" type="text/css" href="uk.css">
+
+
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script src="http://d3js.org/topojson.v1.min.js"></script>
 	<script>
@@ -29,12 +33,17 @@
 		    .attr("width", width)
 		    .attr("height", height);
 
+
 		d3.json("uk.json", function(error, uk) {
-			var subunits = topojson.feature(uk, uk.objects.subunits);
+			
 			console.log(uk);
-			svg.append("path")
-		        .datum(subunits)
-      			.attr("d", path);
+			svg.selectAll(".subunit")
+		        .data(topojson.feature(uk, uk.objects.subunits).features)
+      			.enter().append("path")
+			    .attr("class", function(d) { 
+			    	console.log(d);
+			    	return "subunit " + d.properties.name; })
+			    .attr("d", path);
 
 	
 		});
