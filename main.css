@@ -1,0 +1,57 @@
+div.bar {
+	display: inline-block;
+	width: 20px;
+	height: 75px;
+	background-color: teal;
+	margin-right:2px;
+}
+
+
+
+#control_overlay, #control {
+	padding-left: 20px;
+	padding-top: 20px;
+	bottom: 100px;
+	right: 10px;
+	width: 250px;
+	height: 500px;
+	position: absolute;
+	z-index: 10;
+	border-radius:20px;
+}
+
+#control {
+	background-color: black;
+	opacity:.7;
+}
+
+#text {
+	font-family: helvetica;
+	color:white;
+	opacity:1;
+}
+
+html, body, #map-canvas {
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  padding: 0px
+}
+
+.stations circle {
+  fill: yellow;
+  stroke: white;
+  alpha: 50%;
+  stroke-width: 1.5px;
+}
+
+.stations, .stations svg {
+  position: absolute;
+}
+
+.stations svg {
+  width: 60px;
+  height: 20px;
+  padding-right: 100px;
+  font: 10px sans-serif;
+}
