@@ -5,6 +5,7 @@ var DEFAULT_TIME_END = "";
 var WHERE = "";
 var DEFAULT_QUERY;
 var LIMIT = 1000;
+var locations = [];
 
 Types = {
 	theft: "event_clearance_description='THEFT - MISCELLANEOUS' OR event_clearance_description='THEFT - AUTO ACCESSORIES' OR " +
@@ -83,6 +84,11 @@ function populateOverlay(query) {
 
 	d3.json(query, function (data) {
 
+		for (var i = 0; i < data.length; i++)
+            locations.push(data[i]);
+
+        shootBlanks();
+
 		// Create Google Maps overlay
 		var overlay = new google.maps.OverlayView();
 		  
@@ -116,6 +122,21 @@ function populateOverlay(query) {
 			}
 		}
 		overlay.setMap(_map);
+
+		function shootBlanks(){
+		  var marker;
+		  for(var i = 0; i < locations.length; i++){
+		    var myLatlng = new google.maps.LatLng(locations[i].latitude, locations[i].longitude);
+		      marker = new google.maps.Marker({
+		      position: myLatlng,
+		      map: _map,
+		      icon: 'blank.png'
+		    });
+		    google.maps.event.addListener(marker, 'mouseover', function(){
+		      console.log('chill mouseover');
+		    });
+		  }
+		}
 	});
 }
 
@@ -299,6 +320,12 @@ function init () {
     _map.setMapTypeId('map_style');
 
     populateOverlay();
+
+
+
+
 }
+
+
 
 google.maps.event.addDomListener(window, 'load', init);

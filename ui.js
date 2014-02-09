@@ -2,7 +2,7 @@ var moused = false;
 
 $(document).ready(function(){
 	$("#control_holder").hover(moveIn, moveOut);
-	$( "#datepicker" ).datepicker();
+	$("#datepicker").datepicker();
 	
 })
 
