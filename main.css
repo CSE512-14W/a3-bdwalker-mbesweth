@@ -19,6 +19,13 @@ div.bar {
 	right: 275px; 
 }
 
+a {
+	color: white;
+}
+
+table {
+	border-color: white;
+}
 
 #control_overlay, #control, #control_holder {
 	padding-left: 20px;
@@ -36,6 +43,12 @@ div.bar {
 	height: 100%;
 	bottom: 0px;
 	right: 0px;
+}
+
+#datepicker{
+	margin-top: 4em;
+	border-top: 1px solid white;
+	padding-top: 1em;
 }
 
 #control {
