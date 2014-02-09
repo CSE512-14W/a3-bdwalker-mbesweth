@@ -161,8 +161,13 @@ function filterOnTime(start, end) {
 	
 }
 
-function checkboxChecked(object) {
-	alert(object);
+function checkboxChecked() {
+	var boxes = $("input[type=checkbox]");
+	for (var i = 0; i < boxes.length; i++) {
+		if (boxes[i].checked) {
+			filterOnType([boxes[i].id]);
+		}
+	}
 }
 
 function filterOnType(selectedTypes) {

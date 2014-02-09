@@ -21,27 +21,31 @@
     <div id='control_holder'>
       <img id='grab' alt='grab' src='grab.png'/>
       <div id="control_overlay">
-        <h1>Crime in Seattle</h1>
+        <h2>Crime in Seattle</h2>
         <ul>
           <li>
-            <input id="check1" id="theft" type="checkbox" name="check" value="check1" onclick="filterOnType(['theft'])">  
-            <label for="check1">Theft &amp; Robbery</label>
+            <input id="theft" type="checkbox" name="theft" value="theft" onclick="checkboxChecked()">  
+            <label for="theft">Theft &amp; Robbery</label>
           </li>
           <li>
-            <input id="check2" id="harbor" type="checkbox" name="check" value="check1">  
-            <label for="check2">Harbor</label>
+            <input id="harbor" type="checkbox" name="harbor" value="harbor" onclick="checkboxChecked()">  
+            <label for="harbor">Harbor Violations</label>
           </li>
           <li>
-            <input id="check3" type="checkbox" name="check" value="check1">  
-            <label for="check3">Gambling</label>
+            <input id="drugs" type="checkbox" name="drugs" value="drugs" onclick="checkboxChecked()">  
+            <label for="drugs">Drugs &amp; Narcotics</label>
           </li>
           <li>
-            <input id="check4" id="violent" type="checkbox" name="check" value="check1">  
-            <label for="check4">Violent Offense</label>
+            <input id="violence" type="checkbox" name="violence" value="violence" onclick="checkboxChecked()">  
+            <label for="violence">Violent Crime</label>
           </li>
           <li>
-            <input id="check5" id="vandalism" type="checkbox" name="check" value="check1">  
-            <label for="check5">Vandalism</label>
+            <input id="vandalism" type="checkbox" name="vandalism" value="vandalism" onclick="checkboxChecked()">  
+            <label for="vandalism">Vandalism</label>
+          </li>
+          <li>
+            <input id="sex" type="checkbox" name="sex" value="sex" onclick="checkboxChecked()">  
+            <label for="sex">Sex Crimes</label>
           </li>
 
         </ul>

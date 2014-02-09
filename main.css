@@ -93,7 +93,7 @@ input[type=checkbox]:checked + label:before {
 }
 
 li{
-	font-size: 16pt;
+	font-size: 10pt;
 	margin-bottom: 8pt;
 }
 
