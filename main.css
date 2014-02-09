@@ -42,6 +42,47 @@ div.bar {
 	opacity:.7;
 }
 
+ul {
+	list-style-type: none;
+	
+}
+
+label:before {  
+	border: 1px solid white;
+    content: "";  
+    display: inline-block;  
+  
+    width: 16px;  
+    height: 16px;  
+  
+    margin-right: 10px;  
+    position: absolute;  
+    left: 23px;  
+        
+} 
+
+input[type=checkbox] {  
+    display: none;  
+}  
+
+.checkbox label:before {  
+    border-radius: 3px;  
+}  
+
+input[type=checkbox]:checked + label:before {  
+    content: "x";  
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);  
+    font-size: 15px;  
+    color: #f3f3f3;
+    text-align: center;  
+    line-height: 15px;  
+}
+
+li{
+	font-size: 16pt;
+	margin-bottom: 8pt;
+}
+
 #text, h1, ul {
 	color:white;
 	opacity:1;
