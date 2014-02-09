@@ -5,7 +5,7 @@ var DEFAULT_TIME_END = "";
 var WHERE = "";
 var DEFAULT_QUERY;
 var LIMIT = 10;
-var _locations = [];
+
 var _colorIds = {
 	"theft": "circle_blue",
 	"violence": "circle_red",
@@ -22,9 +22,15 @@ var _cache = {
 	"sex": [],
 	"disturbance": []
 };
-var _hiddenMarkers = [];
+var _hiddenMarkers = {
+	"theft": [],
+	"violence": [],
+	"harbor": [],
+	"drugs": [],
+	"sex": [],
+	"disturbance": []
+}
 var _map;
-var _overlay;
 
 Types = {
 	"theft": "event_clearance_description='THEFT - MISCELLANEOUS' OR event_clearance_description='THEFT - AUTO ACCESSORIES' OR " +
@@ -97,9 +103,10 @@ function createURL(filtered, time) {
 }
 
 function clearOverlay(type) {
-	// for (var i = 0; i < _hiddenMarkers.length; i++) {
-	// 	_hiddenMarkers[i].setMap(null);
-	// }
+	var hidden = _hiddenMarkers[type];
+	for (var i = 0; i < hidden.length; i++) {
+		hidden[i].setMap(null);
+	}
 
 	var markers = _cache[type];
 	for (var i = 0; i < markers.length; i++) {
@@ -107,6 +114,7 @@ function clearOverlay(type) {
 		toRemove.parentNode.removeChild(toRemove);
 	}
 	_cache[type] = [];
+	_hiddenMarkers[type] = [];
 }
 
 function populateOverlay(query, queryType) {
@@ -116,18 +124,13 @@ function populateOverlay(query, queryType) {
 	
 	d3.json(query, function (data) {
 
-		for (var i = 0; i < data.length; i++)
-            _locations.push(data[i]);
-
-        shootBlanks();
-
 		// Create Google Maps overlay
-		_overlay = new google.maps.OverlayView();
+		var overlay = new google.maps.OverlayView();
 		  
-		_overlay.onAdd = function() {
+		overlay.onAdd = function() {
 			var layer = d3.select(this.getPanes().overlayLayer).append("div").attr("class", "station");
 
-			_overlay.draw = function() {
+			overlay.draw = function() {
 			  	var projection = this.getProjection();
 			  	var padding = 10;
 				var marker = layer.selectAll("svg")
@@ -147,10 +150,23 @@ function populateOverlay(query, queryType) {
 				    .attr("cy", padding)
 				    .each(function (d) {
 				   		_cache[queryType].push(this);
+				   		var myLatlng = new google.maps.LatLng(d.value.latitude, d.value.longitude);
+
+						marker = new google.maps.Marker({
+						  position: myLatlng,
+						  map: _map,
+						  icon: 'blank.png'
+						});
+
+						google.maps.event.addListener(marker, 'click', function(){
+					 	 console.log('chill mouse-click');
+						});
+
+						console.log(d);
+						_hiddenMarkers[queryType].push(marker);
 				    });
 
 				function transform(d) {
-					console.log(d);
 					d = new google.maps.LatLng(d.value.latitude, d.value.longitude);
 				    d = projection.fromLatLngToDivPixel(d);
 				    return d3.select(this)
@@ -159,22 +175,7 @@ function populateOverlay(query, queryType) {
 				}
 			}
 		}
-		_overlay.setMap(_map);
-
-		function shootBlanks(){
-		  var marker;
-		  for(var i = 0; i < _locations.length; i++){
-		    var myLatlng = new google.maps.LatLng(_locations[i].latitude, _locations[i].longitude);
-		      marker = new google.maps.Marker({
-		      position: myLatlng,
-		      map: _map,
-		      icon: 'blank.png'
-		    });
-		    google.maps.event.addListener(marker, 'click', function(){
-		      console.log('chill mouse-click');
-		    });
-		  }
-		}
+		overlay.setMap(_map);
 	});
 }
 
