@@ -4,6 +4,15 @@ body {
 	font-family: 'PT Mono';
 }
 
+#color_holder{
+	z-index: 10;
+	position: absolute;
+	top: 20px;
+	left: 40px;
+	width: 400px;
+	height: 500px;
+}
+
 div.bar {
 	display: inline-block;
 	width: 20px;
@@ -17,6 +26,7 @@ div.bar {
 	position: absolute;
 	bottom: 45%;
 	right: 275px; 
+	opacity: 0.8;
 }
 
 a {
@@ -58,11 +68,12 @@ table {
 
 ul {
 	list-style-type: none;
-	
 }
 
+
+
 label:before {  
-	border: 1px solid white;
+	border: 1px solid;
     content: "";  
     display: inline-block;  
   
@@ -90,6 +101,10 @@ input[type=checkbox]:checked + label:before {
     color: #f3f3f3;
     text-align: center;  
     line-height: 15px;  
+}
+
+input[type=checkbox]:checked + label:before #theft{
+	color:pink;
 }
 
 li{

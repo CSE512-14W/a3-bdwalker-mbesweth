@@ -1,37 +1,51 @@
-var moused = false;
+var open = true;
 
 $(document).ready(function(){
-	$("#control_holder").hover(moveIn, moveOut);
+	$grab = $("#grab");
+	$grab.click(move);
+	$grab.hover(function(){
+		$(this).animate({opacity: 1})
+	}, function(){
+		$(this).animate({opacity: 0.8})
+	});
+	//$("#control_holder").hover(moveIn, moveOut);
 	$("#datepicker").datepicker();
 	
 })
 
+function move(){
+	if(open)
+		moveOut();
+	else
+		moveIn();
+}
+
 function moveIn(e){
-	if(!moused){
-		$("#control_overlay").animate({
-			right: "0px"
-		});
-		$("#control").animate({
-			right: "0px"
-		});
-		$("#grab").animate({
-			right: "275px"
-		});
-		moused = true;
-	}
+	
+	$("#control_overlay").animate({
+		right: "0px"
+	});
+	$("#control").animate({
+		right: "0px"
+	});
+	$("#grab").animate({
+		right: "275px"
+	});
+	open = true;
+	
 }
 
 function moveOut(e){
-	if(moused){
-		$("#control_overlay").animate({
-			right: "-1000px"
-		});
-		$("#control").animate({
-			right: "-1000px"
-		});
-		$("#grab").animate({
-			right: "10px"
-		});
-		moused = false;
-	}
+	
+	$("#control_overlay").animate({
+		right: "-1000px"
+	});
+	$("#control").animate({
+		right: "-1000px"
+	});
+	$("#grab").animate({
+		right: "10px"
+	});
+	open = false;
+	
 }

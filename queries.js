@@ -159,10 +159,12 @@ function populateOverlay(query, queryType) {
 						});
 
 						google.maps.event.addListener(marker, 'click', function(){
-					 	 console.log('chill mouse-click');
+					 	 $attributes = $('#attributes');
+					 	 $attributes.empty();
+					 	 $attributes.append($('<p>').text(d.value.event_clearance_description));
 						});
 
-						console.log(d);
+
 						_hiddenMarkers[queryType].push(marker);
 				    });
 
