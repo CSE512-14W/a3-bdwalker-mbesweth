@@ -1,7 +1,9 @@
-var URL = "http://data.seattle.gov/resource/3k2p-39jp.json";
-var TOKEN = "DpnZlymDFh48LN2JHFUGyM7et"
-var QUERY = "?$select=latitude,longitude,event_clearance_description,initial_type_description,at_scene_time,event_clearance_date";
+var URL = "http://data.seattle.gov/resource/3k2p-39jp.json?$select=latitude,longitude,event_clearance_description,initial_type_description,at_scene_time,event_clearance_date";
+var TOKEN = "&$$app_token=DpnZlymDFh48LN2JHFUGyM7et"
+var DEFAULT_TIME_START = '2014-01-01';
+var DEFAULT_TIME_END = "";
 var WHERE = "";
+var DEFAULT_QUERY;
 var LIMIT = 1000;
 
 Types = {
@@ -57,12 +59,26 @@ Types = {
 
 };
 
-var BASE_QUERY = URL + "?$select=latitude,longitude,event_clearance_description,initial_type_description,at_scene_time,event_clearance_date" + 
-	"&$where=" + Types.harrassment + "&$$app_token=DpnZlymDFh48LN2JHFUGyM7et";
+
+
+function createURL(filtered, time) {
+
+	if (typeof(time) === 'undefined') {
+		time = "(event_clearance_date >='" + DEFAULT_TIME_START  + "' AND event_clearance_date <= '" + DEFAULT_TIME_END + "')";
+	}
+	if (typeof(filtered) !== 'undefined') {
+		filtered += " AND ";
+	} else {
+		filtered = "";
+	}
+
+	var completeURL = URL + "&$where=" + filtered + time + TOKEN;
+	return completeURL;
+}
 
 function populateOverlay(query) {
 	if (typeof(query) === 'undefined') {
-		query = BASE_QUERY;
+		query = DEFAULT_QUERY;
 	}
 
 	d3.json(query, function (data) {
@@ -83,10 +99,7 @@ function populateOverlay(query) {
 				    .enter()
 				    .append("svg:svg")
 				    .each(transform)
-				    .attr("class", "stations")
-				    .on("mouseover", function() {
-				    	alert("hello");
-				    });
+				    .attr("class", "stations");
 
 				marker.append("svg:circle")
 				    .attr("r", 7)
@@ -204,8 +217,7 @@ function filterOnType(selectedTypes) {
 		}
 	}
 
-	var url = URL + QUERY + "&$where=" + filtered + "&$$app_token=" + TOKEN;
-	populateOverlay(url);
+	populateOverlay(createURL(filtered));
 }
 
 function filterOnDistrict(district) {
@@ -217,7 +229,12 @@ function createMap() {
 }
 
 function init () {
-    
+
+	//populate default end date to be todays date
+	var date = new Date();
+	DEFAULT_TIME_END = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+    DEFAULT_QUERY = createURL();
+
     var style = [
     {
       "featureType": "water",
@@ -281,8 +298,7 @@ function init () {
     _map.mapTypes.set('map_style', styledMap);
     _map.setMapTypeId('map_style');
 
-    var selected = ["animal", "hazard"];
-    filterOnType(selected);
+    populateOverlay();
 }
 
 google.maps.event.addDomListener(window, 'load', init);
