@@ -9,10 +9,10 @@ var LIMIT = 10;
 var _colorIds = {
 	"theft": "circle_blue",
 	"violence": "circle_red",
-	"harbor": "circle_yellow",
+	"harbor": "circle_purple",
 	"drugs": "circle_orange",
-	"sex": "circle_green",
-	"disturbance": "circle_purple"
+	"sex": "circle_yellow",
+	"disturbance": "circle_green"
 };
 var _cache = {
 	"theft": [],
