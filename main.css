@@ -93,7 +93,7 @@ input[type=checkbox]:checked + label:before {
 }
 
 li{
-	font-size: 16pt;
+	font-size: 10pt;
 	margin-bottom: 8pt;
 }
 
@@ -109,11 +109,43 @@ html, body, #map-canvas {
   padding: 0px
 }
 
-.stations circle {
-  fill: rgba(255, 255, 40, .5);
-  stroke: rgba(255, 155, 78, 1);
-  alpha: 50%;
+#circle_orange {
+  fill: rgba(255, 127, 14, .5);
+  stroke: rgba(255, 187, 120, 1);
+}
+
+#circle_blue {
+  fill: rgba(31, 119, 180, .5);
+  stroke: rgba(23, 190, 207, 1);
+}
+
+#circle_red {
+  fill: rgba(214, 39, 40, .5);
+  stroke: rgba(255, 152, 150, 1);
+}
+
+#circle_green {
+  fill: rgba(40, 166, 40, .5);
+  stroke: rgba(152, 223, 138, 1);	
+}
+
+#circle_purple {
+  fill: rgba(148, 103, 189, .5);
+  stroke: rgba(197, 176, 213, 1);
+}
+
+#circle_yellow {
+  fill: rgba(188, 189, 34, .5);
+  stroke: rgba(219, 219, 141, 1);
+}
+
+#circle_orange, #circle_blue, #circle_red, #circle_green,
+#circle_purple, #circle_yellow {
   stroke-width: 2.5px;
+  position: absolute;
+  width: 60px;
+  height: 20px;
+  padding-right: 100px;
 }
 
 .stations, .stations svg {
