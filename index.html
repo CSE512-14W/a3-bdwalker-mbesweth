@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		 <meta charset="utf-8">
-      <title>D3 Test</title>
+      <title>Seattle 911</title>
       <link rel="stylesheet" type="text/css" href="main.css">
       <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
       <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -24,11 +24,11 @@
         <h1>Crime in Seattle</h1>
         <ul>
           <li>
-            <input id="check1" type="checkbox" name="check" value="check1">  
+            <input id="check1" id="theft" type="checkbox" name="check" value="check1" onclick="filterOnType(['theft'])">  
             <label for="check1">Theft &amp; Robbery</label>
           </li>
           <li>
-            <input id="check2" type="checkbox" name="check" value="check1">  
+            <input id="check2" id="harbor" type="checkbox" name="check" value="check1">  
             <label for="check2">Harbor</label>
           </li>
           <li>
@@ -36,11 +36,11 @@
             <label for="check3">Gambling</label>
           </li>
           <li>
-            <input id="check4" type="checkbox" name="check" value="check1">  
+            <input id="check4" id="violent" type="checkbox" name="check" value="check1">  
             <label for="check4">Violent Offense</label>
           </li>
           <li>
-            <input id="check5" type="checkbox" name="check" value="check1">  
+            <input id="check5" id="vandalism" type="checkbox" name="check" value="check1">  
             <label for="check5">Vandalism</label>
           </li>
 
