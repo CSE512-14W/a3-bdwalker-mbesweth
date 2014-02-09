@@ -12,7 +12,18 @@
       <script type="text/javascript" src="queries.js"></script>
       <script type="text/javascript" src="jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
       <script type="text/javascript" src="ui.js"></script>
-
+      <script type="text/javascript">
+        // $(function () {
+        //   var date = new Date();
+        //   $("#startDate").datepicker({
+        //       dateFormat: "yy-mm-dd"
+        //    });
+        //   $("#startDate").datepicker({
+        //       maxDate: "+0m"
+        //   })
+        //   $("#endDate").datepicker({dateFormat: "yy-mm-dd"});
+        // });
+      </script>
       
 	</head>
 	<body>
@@ -40,17 +51,20 @@
             <label for="violence">Violent Crime</label>
           </li>
           <li>
-            <input id="vandalism" type="checkbox" name="vandalism" value="vandalism" onclick="checkboxChecked()">  
-            <label for="vandalism">Vandalism</label>
+            <input id="disturbance" type="checkbox" name="disturbance" value="disturbance" onclick="checkboxChecked()">  
+            <label for="disturbance">Disturbances</label>
           </li>
           <li>
             <input id="sex" type="checkbox" name="sex" value="sex" onclick="checkboxChecked()">  
             <label for="sex">Sex Crimes</label>
           </li>
-
         </ul>
-        <div id="datepicker"></div>
         <div id='attributes'></div>
+        <div id="date">
+          Filter By Date Range:
+            <p>Start Date: <input id="startDate" type="text" onChange="filterOnTime()" value="yyyy-mm-dd"></p>
+            <p>End Date: <input id="endDate" type="text" onchange="filterOnTime()" value="yyyy-mm-dd"></p>
+        </div>
       </div>
     </div>
     <div id="map-canvas">

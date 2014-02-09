@@ -1,6 +1,6 @@
 var URL = "http://data.seattle.gov/resource/3k2p-39jp.json?$select=latitude,longitude,event_clearance_description,initial_type_description,at_scene_time,event_clearance_date";
 var TOKEN = "&$$app_token=DpnZlymDFh48LN2JHFUGyM7et"
-var DEFAULT_TIME_START = '2014-02-07';
+var DEFAULT_TIME_START = "";
 var DEFAULT_TIME_END = "";
 var WHERE = "";
 var DEFAULT_QUERY;
@@ -85,12 +85,13 @@ Types = {
 
 };
 
-
-
-function createURL(filtered, time) {
-
-	if (typeof(time) === 'undefined') {
+function createURL(filtered, start, end) {
+	var time;
+	console.log(start + " " + end);
+	if (typeof(start) === 'undefined' || typeof(end) === 'undefined') {
 		time = "(event_clearance_date >='" + DEFAULT_TIME_START  + "' AND event_clearance_date <= '" + DEFAULT_TIME_END + "')";
+	} else {
+		time = "(event_clearance_date >='" + start + "' AND event_clearance_date <='" + end + "')";
 	}
 	if (typeof(filtered) !== 'undefined') {
 		filtered += " AND ";
@@ -199,24 +200,30 @@ function populateOverlay(query, queryType) {
 	});
 }
 
-function filterOnTime(start, end) {
-	
+function filterOnTime() {
+	var boxes = $("input[type=checkbox]");
+	for (var i = 0; i < boxes.length; i++) {
+		clearOverlay(boxes[i].id);
+	}
+	checkboxChecked();
 }
 
 function checkboxChecked() {
 	var boxes = $("input[type=checkbox]");
+	var end = $("#endDate").val();
+	var start = $("#startDate").val();
 	for (var i = 0; i < boxes.length; i++) {
 		var checkedId = boxes[i].id;
 		if (boxes[i].checked) {
-			filterOnType(checkedId);
+			filterOnType(checkedId, start, end);
 		} else if (_cache[checkedId].length != 0) {
 			clearOverlay(checkedId);
 		}
 	}
 }
 
-function filterOnType(selectedType) {
-	var queryURL = createURL(Types[selectedType]);
+function filterOnType(selectedType, start, end) {
+	var queryURL = createURL(Types[selectedType], start, end);
 	populateOverlay(queryURL, selectedType);
 }
 
@@ -224,18 +231,26 @@ function filterOnDistrict(district) {
 
 }
 
-function createMap() {
-
+function getDate(days, months, years) {
+	var date = new Date();
+	date.setDate(date.getDate() + days);
+	date.setMonth(date.getMonth() + months);
+	date.setFullYear(date.getFullYear() + years);
+	return date.getFullYear() + "-" + (("0" + (date.getMonth() + 1)).slice(-2)) + "-" + ("0" + date.getDate()).slice(-2);
 }
+
 
 function init () {
 
-	//populate default end date to be todays date
-	var date = new Date();
+	var defaultStart = getDate(-1, 0, 0);
+	var defaultEnd = getDate(0, 0, 0);
+	d3.select("#endDate")
+		.attr("value", defaultEnd);
+	d3.select("#startDate")
+		.attr("value", defaultStart);
 
-	DEFAULT_TIME_END = date.getFullYear() + "-" + (("0" + (date.getMonth() + 1)).slice(-2)) + "-" + ("0" + date.getDate()).slice(-2);
-    DEFAULT_QUERY = createURL();
-
+	DEFAULT_TIME_START = defaultStart;
+	DEFAULT_TIME_END = defaultEnd;
     var style = [
     {
       "featureType": "water",
