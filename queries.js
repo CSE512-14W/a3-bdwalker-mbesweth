@@ -14,8 +14,17 @@ var _colorIds = {
 	"sex": "circle_green",
 	"disturbance": "circle_purple"
 };
+var _cache = {
+	"theft": [],
+	"violence": [],
+	"harbor": [],
+	"drugs": [],
+	"sex": [],
+	"disturbance": []
+};
 var _hiddenMarkers = [];
 var _map;
+var _overlay;
 
 Types = {
 	"theft": "event_clearance_description='THEFT - MISCELLANEOUS' OR event_clearance_description='THEFT - AUTO ACCESSORIES' OR " +
@@ -87,18 +96,24 @@ function createURL(filtered, time) {
 	return completeURL;
 }
 
-function clearOverlay() {
-	for (var i = 0; i < _hiddenMarkers.length; i++) {
-		_hiddenMarkers[i].setMap(null);
+function clearOverlay(type) {
+	// for (var i = 0; i < _hiddenMarkers.length; i++) {
+	// 	_hiddenMarkers[i].setMap(null);
+	// }
+
+	var markers = _cache[type];
+	for (var i = 0; i < markers.length; i++) {
+		var toRemove = markers[i];
+		toRemove.parentNode.removeChild(toRemove);
 	}
+	_cache[type] = [];
 }
 
-function populateOverlay(query) {
+function populateOverlay(query, queryType) {
 	if (typeof(query) === 'undefined') {
 		query = DEFAULT_QUERY;
 	}
 	
-	clearOverlay();
 	d3.json(query, function (data) {
 
 		for (var i = 0; i < data.length; i++)
@@ -107,12 +122,12 @@ function populateOverlay(query) {
         shootBlanks();
 
 		// Create Google Maps overlay
-		var overlay = new google.maps.OverlayView();
+		_overlay = new google.maps.OverlayView();
 		  
-		overlay.onAdd = function() {
+		_overlay.onAdd = function() {
 			var layer = d3.select(this.getPanes().overlayLayer).append("div").attr("class", "station");
 
-			overlay.draw = function() {
+			_overlay.draw = function() {
 			  	var projection = this.getProjection();
 			  	var padding = 10;
 				var marker = layer.selectAll("svg")
@@ -121,12 +136,18 @@ function populateOverlay(query) {
 				    .enter()
 				    .append("svg:svg")
 				    .each(transform)
-				    .attr("id", "circle_yellow");
+				    .each(function(d) {
+				    	d3.select(this)
+				    		.attr("id", _colorIds[queryType]);
+				    });
 
 				marker.append("svg:circle")
 				    .attr("r", 4)
 				    .attr("cx", padding)
-				    .attr("cy", padding);
+				    .attr("cy", padding)
+				    .each(function (d) {
+				   		_cache[queryType].push(this);
+				    });
 
 				function transform(d) {
 					console.log(d);
@@ -138,7 +159,7 @@ function populateOverlay(query) {
 				}
 			}
 		}
-		overlay.setMap(_map);
+		_overlay.setMap(_map);
 
 		function shootBlanks(){
 		  var marker;
@@ -164,24 +185,18 @@ function filterOnTime(start, end) {
 function checkboxChecked() {
 	var boxes = $("input[type=checkbox]");
 	for (var i = 0; i < boxes.length; i++) {
+		var checkedId = boxes[i].id;
 		if (boxes[i].checked) {
-			filterOnType([boxes[i].id]);
+			filterOnType(checkedId);
+		} else if (_cache[checkedId].length != 0) {
+			clearOverlay(checkedId);
 		}
 	}
 }
 
-function filterOnType(selectedTypes) {
-	var filtered = '';
-	for (var i = 0; i < selectedTypes.length; i++) {
-		var selected = selectedTypes[i];
-
-		if (filtered !== '') {
-			filtered += " OR ";
-		}
-		filtered += Types[selected];
-	}
-
-	populateOverlay(createURL(filtered));
+function filterOnType(selectedType) {
+	var queryURL = createURL(Types[selectedType]);
+	populateOverlay(queryURL, selectedType);
 }
 
 function filterOnDistrict(district) {
