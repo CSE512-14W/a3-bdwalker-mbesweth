@@ -132,6 +132,7 @@ function populateOverlay(query) {
 		      map: _map,
 		      icon: 'blank.png'
 		    });
+		    console.log(locations);
 		    google.maps.event.addListener(marker, 'mouseover', function(){
 		      console.log('chill mouseover');
 		    });
