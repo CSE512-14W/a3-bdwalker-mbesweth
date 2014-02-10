@@ -5,9 +5,12 @@
       <title>Seattle 911</title>
       <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
       <link rel="stylesheet" type="text/css" href="main.css">
+      <link rel="stylesheet" type="text/css" href="./jquery.spin.css">
       <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
       <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+      <script type="text/javascript" src="./jquery.spin.js"></script>
       <script src="./d3.v3/d3.v3.min.js"></script>
+      <script src="./spin.min.js"></script>
       <script type="text/javascript"
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGL4l6AvrKxqUdGyc2yRvrMDw3cJ4eZKY&sensor=false">
       </script>
@@ -87,13 +90,13 @@
           </li>
           <li>
               <input id='custom' type='checkbox' name='custom' value="custom" onclick="checkboxChecked()">
-              <label for='custom'><input id="customLabel" type="text" name="customLabel" value="Custom Search" onclick="this.value=''" onchange="checkboxChecked()"><span id='c'></span></label> 
+              <label for='custom'><input id="customLabel" type="text" name="customLabel" value="Custom Search" onclick="this.value=''" onchange="filterOnCustom()"><span id='c'></span></label> 
           </li>
         </ul>
         <div id="timeFilters">
           <p style="font-size:10pt;">Select a Date and Time Range:</p>
           <p style="font-size:8pt;">Date Format: YYYY-MM-DD</p>
-           <p id="selectedHours" style="font-size:10pt;">
+          <p id="selectedHours" style="margin-top:25px;font-size:10pt;">
             <span id="startDateLabel"></span> <span id="startTimeLabel"></span> To <br/><span id="endDateLabel"></span> <span id="endTimeLabel"></span>
           </p>
           <div id="date">
@@ -101,8 +104,8 @@
               <p>End Date: <input id="endDate" type="text" onchange="filterOnTime()" value="yyyy-mm-dd"></p>
           </div>
         </div>
-        <div id="hours">
-        </div>       
+        <div id="hours"></div>  
+        <div class="spin"></div>
       </div>
     </div>
     <div id="map-canvas">

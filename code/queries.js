@@ -7,6 +7,7 @@ var DEFAULT_QUERY;
 var LIMIT = 10;
 var SELECTED_START_HOUR = "00:00:00";
 var SELECTED_END_HOUR = "23:59:00";
+var SPINNER;
 
 var _colorIds = {
 	"theft": "circle_blue",
@@ -148,10 +149,13 @@ function populateOverlay(query, queryType, offset) {
 		query = DEFAULT_QUERY;
 	}
 	
+	startSpinner();
 	d3.json(query + "&$offset=" + offset, function (data) {
-		if (data.length == 0 || offset > 3000) {
+		if (data.length == 0 || offset > 3000) {			
+			stopSpinner();
 			return;
 		}
+
 		// Create Google Maps overlay
 		var overlay = new google.maps.OverlayView();
 		_overlays[queryType].push(overlay);
@@ -218,6 +222,13 @@ function populateOverlay(query, queryType, offset) {
 		overlay.setMap(_map);
 
 	});
+}
+
+function filterOnCustom() {
+	if ($("#custom")[0].checked) {
+		clearOverlay("custom");
+	}
+	checkboxChecked();
 }
 
 function filterOnTime() {
@@ -301,6 +312,13 @@ function getDate(days, months, years) {
 	return date.getFullYear() + "-" + (("0" + (date.getMonth() + 1)).slice(-2)) + "-" + ("0" + date.getDate()).slice(-2);
 }
 
+function startSpinner() {
+	$(".spin").spin('show');
+}
+
+function stopSpinner() {
+	$(".spin").spin('hide');
+}
 
 function init () {
 
@@ -318,6 +336,7 @@ function init () {
 	$("#startTimeLabel").text("00:00");
 	$("#endDateLabel").text(defaultEnd);
 	$("#endTimeLabel").text("23:59");
+	$("#querylabel").hide();
 	
     var style = [
     {
