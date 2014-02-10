@@ -12,18 +12,6 @@
       <script type="text/javascript" src="queries.js"></script>
       <script type="text/javascript" src="jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
       <script type="text/javascript" src="ui.js"></script>
-      <script type="text/javascript">
-        // $(function () {
-        //   var date = new Date();
-        //   $("#startDate").datepicker({
-        //       dateFormat: "yy-mm-dd"
-        //    });
-        //   $("#startDate").datepicker({
-        //       maxDate: "+0m"
-        //   })
-        //   $("#endDate").datepicker({dateFormat: "yy-mm-dd"});
-        // });
-      </script>
       
 	</head>
 	<body>
@@ -61,12 +49,11 @@
             <label for="sex">Sex Crimes <span id='s'></span></label>
           </li>
         </ul>
-        <div id='attributes'></div>
         <div id="date">
-          Filter By Date Range:
             <p>Start Date: <input id="startDate" type="text" onChange="filterOnTime()" value="yyyy-mm-dd"></p>
             <p>End Date: <input id="endDate" type="text" onchange="filterOnTime()" value="yyyy-mm-dd"></p>
         </div>
+        <div id='attributes'></div>
       </div>
     </div>
     <div id="map-canvas">

@@ -104,6 +104,7 @@ function createURL(filtered, start, end) {
 }
 
 function clearOverlay(type) {
+	console.log(type);
 	var hidden = _hiddenMarkers[type];
 	for (var i = 0; i < hidden.length; i++) {
 		hidden[i].setMap(null);
@@ -214,6 +215,7 @@ function checkboxChecked() {
 	var start = $("#startDate").val();
 	for (var i = 0; i < boxes.length; i++) {
 		var checkedId = boxes[i].id;
+		console.log(checkedId);
 		if (boxes[i].checked) {
 			filterOnType(checkedId, start, end);
 		} else if (_cache[checkedId].length != 0) {
