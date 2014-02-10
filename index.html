@@ -41,7 +41,6 @@
           });
         });
       </script>
-      
 	</head>
 	<body>
     <!-- <div id='color_holder'><img id='color' alt='color' src='colorpicker.png'/></div> -->
@@ -49,7 +48,7 @@
     <div id='control_holder'>
       <img id='grab' alt='grab' src='grab.png'/>
       <div id="control_overlay">
-        <h2>Crime in Seattle</h2>
+        <h2>Police 911 Calls</h2>
         <ul>
           <li>
             <input id="theft" type="checkbox" name="theft" value="theft" onclick="checkboxChecked()">  
@@ -76,6 +75,10 @@
           <li>
             <input id="sex" type="checkbox" name="sex" value="sex" onclick="checkboxChecked()">  
             <label for="sex">Sex Crimes <span id='s'></span></label>
+          </li>
+          <li>
+              <input id='custom' type='checkbox' name='custom' value="custom" onclick="checkboxChecked()">
+              <label for='custom'><input id="customLabel" type="text" name="customLabel" value="custom" onclick="this.value=''" onchange="checkboxChecked()"><span id='c'></span></label> 
           </li>
         </ul>
         <div id="date">

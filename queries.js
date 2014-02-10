@@ -5,6 +5,8 @@ var DEFAULT_TIME_END = "";
 var WHERE = "";
 var DEFAULT_QUERY;
 var LIMIT = 10;
+var SELECTED_START_HOUR = "00:00:00";
+var SELECTED_END_HOUR = "23:59:00";
 
 var _colorIds = {
 	"theft": "circle_blue",
@@ -12,7 +14,8 @@ var _colorIds = {
 	"harbor": "circle_purple",
 	"drugs": "circle_orange",
 	"sex": "circle_yellow",
-	"disturbance": "circle_green"
+	"disturbance": "circle_green",
+	"custom": "circle_pink"
 };
 var _cache = {
 	"theft": [],
@@ -20,7 +23,8 @@ var _cache = {
 	"harbor": [],
 	"drugs": [],
 	"sex": [],
-	"disturbance": []
+	"disturbance": [],
+	"custom":[]
 };
 var _hiddenMarkers = {
 	"theft": [],
@@ -28,7 +32,8 @@ var _hiddenMarkers = {
 	"harbor": [],
 	"drugs": [],
 	"sex": [],
-	"disturbance": []
+	"disturbance": [],
+	"custom":[]
 }
 
 var _overlays = {
@@ -37,7 +42,8 @@ var _overlays = {
 	"harbor": [],
 	"drugs": [],
 	"sex": [],
-	"disturbance": []
+	"disturbance": [],
+	"custom": []
 }
 
 var _map;
@@ -95,21 +101,27 @@ Types = {
 
 };
 
-function createURL(filtered, start, end) {
+function createURL(filtered, start, end, customSearch) {
 	var time;
 	if (typeof(start) === 'undefined' || typeof(end) === 'undefined') {
 		time = "(event_clearance_date >='" + DEFAULT_TIME_START  + "' AND event_clearance_date <= '" + DEFAULT_TIME_END + "')";
 	} else {
 		time = "(event_clearance_date >='" + start + "' AND event_clearance_date <='" + end + "')";
 	}
-	if (typeof(filtered) !== 'undefined') {
+
+	if (filtered === "custom") {
+		filtered = '';
+	} else if (typeof(filtered) !== 'undefined') {
 		filtered += " AND ";
 	} else {
 		filtered = Types.theft;
 	}
 
-	var completeURL = URL + "&$where=" + filtered + time + TOKEN;
-	console.log(completeURL);
+	if (typeof(customSearch) === 'undefined') {
+		customSearch = '';
+	}
+
+	var completeURL = URL + "&$where=" + filtered + time + customSearch + TOKEN;
 	return completeURL;
 }
 
@@ -237,7 +249,8 @@ function filterOnHours(event, ui) {
 	}
 	hourStart += ":00";
 	hourEnd += ":00"
-
+	SELECTED_END_HOUR = hourEnd;
+	SELECTED_START_HOUR = hourStart;
 	checkboxChecked(hourStart, hourEnd);
 }
 
@@ -247,33 +260,35 @@ function checkboxChecked(startHour, endHour) {
 	if (typeof(endHour) !== 'undefined') {
 		end += "T" + endHour;
 	} else {
-		end += "T23:59:00";
+		end += "T" + SELECTED_END_HOUR;
 	}
 
 	var start = $("#startDate").val();
 	if (typeof(startHour) !== 'undefined') {
 		start += "T" + startHour;
 	} else {
-		start += "T00:00:00";
+		start += "T" + SELECTED_START_HOUR;
 	}
-	console.log(start + " " + end);
+
+	var customSearch = '';
 	for (var i = 0; i < boxes.length; i++) {
 		var checkedId = boxes[i].id;
 		if (boxes[i].checked) {
-			filterOnType(checkedId, start, end);
+			if (checkedId === "custom" && $("#customLabel").val() !== "custom") {
+				customSearch = "&$q='" + $("#customLabel").val() + "'";
+				var queryURL = createURL(checkedId, start, end, customSearch);
+				console.log(queryURL);
+				populateOverlay(queryURL, checkedId, 0);
+			} else if (checkedId !== "custom") {
+				var queryURL = createURL(Types[checkedId], start, end, customSearch);
+				console.log(queryURL);
+				populateOverlay(queryURL, checkedId, 0);
+			}
+			
 		} else if (_cache[checkedId].length != 0) {
 			clearOverlay(checkedId);
 		}
 	}
-}
-
-function filterOnType(selectedType, start, end) {
-	var queryURL = createURL(Types[selectedType], start, end);
-	populateOverlay(queryURL, selectedType, 0);
-}
-
-function filterOnDistrict(district) {
-
 }
 
 function getDate(days, months, years) {
@@ -340,7 +355,7 @@ function init () {
     },{
       "elementType": "labels",
       "stylers": [
-        { "visibility": "off" }
+        { "visibility": "simplified" }
       ]
     }];
 

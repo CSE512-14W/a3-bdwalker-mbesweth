@@ -199,6 +199,11 @@ html, body, #map-canvas {
 	border-color: rgba(219, 219, 141, 1);
 }
 
+#c {
+ fill: rgba(127, 119, 194, .5);
+  stroke: rgba(247, 182, 210, 1);
+}
+
 #circle_orange {
   fill: rgba(255, 127, 14, .5);
   stroke: rgba(255, 187, 120, 1);
@@ -229,8 +234,13 @@ html, body, #map-canvas {
   stroke: rgba(219, 219, 141, 1);
 }
 
+#circle_pink {
+  fill: rgba(127, 119, 194, .5);
+  stroke: rgba(247, 182, 210, 1);
+}
+
 #circle_orange, #circle_blue, #circle_red, #circle_green,
-#circle_purple, #circle_yellow {
+#circle_purple, #circle_yellow, #circle_pink {
   stroke-width: 2.5px;
   position: absolute;
   width: 60px;
