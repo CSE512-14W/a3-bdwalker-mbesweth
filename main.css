@@ -46,6 +46,17 @@ table {
 	border-color: white;
 }
 
+div.ui-slider-range.ui-widget-header {
+    background: rgba(23, 190, 207, 1);
+}	
+
+
+#hours {
+	margin-top:10px;
+	width:80%;
+	height:15px;
+}
+
 #control_overlay, #control, #control_holder {
 	padding-left: 20px;
 	padding-top: 20px;

@@ -30,6 +30,16 @@ var _hiddenMarkers = {
 	"sex": [],
 	"disturbance": []
 }
+
+var _overlays = {
+	"theft": [],
+	"violence": [],
+	"harbor": [],
+	"drugs": [],
+	"sex": [],
+	"disturbance": []
+}
+
 var _map;
 
 Types = {
@@ -99,6 +109,7 @@ function createURL(filtered, start, end) {
 	}
 
 	var completeURL = URL + "&$where=" + filtered + time + TOKEN;
+	console.log(completeURL);
 	return completeURL;
 }
 
@@ -108,6 +119,8 @@ function clearOverlay(type) {
 		hidden[i].setMap(null);
 	}
 
+	var overlays = _overlays[type];
+
 	var markers = _cache[type];
 	for (var i = 0; i < markers.length; i++) {
 		var toRemove = markers[i];
@@ -115,21 +128,26 @@ function clearOverlay(type) {
 	}
 	_cache[type] = [];
 	_hiddenMarkers[type] = [];
+	_overlays[type] = [];
 }
 
-function populateOverlay(query, queryType) {
+function populateOverlay(query, queryType, offset) {
 	if (typeof(query) === 'undefined') {
 		query = DEFAULT_QUERY;
 	}
 	
-	d3.json(query, function (data) {
-
+	d3.json(query + "&$offset=" + offset, function (data) {
+		if (data.length == 0 || offset > 3000) {
+			return;
+		}
 		// Create Google Maps overlay
 		var overlay = new google.maps.OverlayView();
-		  
+		_overlays[queryType].push(overlay);
+		populateOverlay(query, queryType, offset + 1000);
 		overlay.onAdd = function() {
 			var layer = d3.select(this.getPanes().overlayLayer).append("div").attr("class", "station");
 
+			overlay.remove
 			overlay.draw = function() {
 			  	var projection = this.getProjection();
 			  	var padding = 10;
@@ -168,7 +186,7 @@ function populateOverlay(query, queryType) {
 					 	 var split = date.split("T");
 					 	 
 					 	 $date.append($('<spand>').text(split[0]));
-					 	 $('#toi').empty().append($('<span>').text(d.value.at_scene_time.split("T")[1]));
+					 	 $('#toi').empty().append($('<span>').text(split[1]));
 					 	 $('#id').empty().append($('<span>').text(d.value.cad_cdw_id));					 	 
 						});
 
@@ -198,13 +216,49 @@ function filterOnTime() {
 	checkboxChecked();
 }
 
-function checkboxChecked() {
+function filterOnHours(event, ui) {
+	var boxes = $("input[type=checkbox]");
+	for (var i = 0; i < boxes.length; i++) {
+		clearOverlay(boxes[i].id);
+	}
+	var hourStart, hourEnd;
+	if (ui.values[0] < 10) {
+		hourStart = "0" + ui.values[0] + ":00";
+	} else {
+		hourStart = ui.values[0] + ":00";
+	}
+
+	if (ui.values[1] < 10) {
+		hourEnd = "0" + ui.values[1] + ":59";
+	} else if (ui.values[1] == 23) {
+		hourEnd = "23:59";
+	} else {
+		hourEnd = ui.values[1] + ":59";
+	}
+	hourStart += ":00";
+	hourEnd += ":00"
+
+	checkboxChecked(hourStart, hourEnd);
+}
+
+function checkboxChecked(startHour, endHour) {
 	var boxes = $("input[type=checkbox]");
 	var end = $("#endDate").val();
+	if (typeof(endHour) !== 'undefined') {
+		end += "T" + endHour;
+	} else {
+		end += "T23:59:00";
+	}
+
 	var start = $("#startDate").val();
+	if (typeof(startHour) !== 'undefined') {
+		start += "T" + startHour;
+	} else {
+		start += "T00:00:00";
+	}
+	console.log(start + " " + end);
 	for (var i = 0; i < boxes.length; i++) {
 		var checkedId = boxes[i].id;
-		console.log(checkedId);
 		if (boxes[i].checked) {
 			filterOnType(checkedId, start, end);
 		} else if (_cache[checkedId].length != 0) {
@@ -215,7 +269,7 @@ function checkboxChecked() {
 
 function filterOnType(selectedType, start, end) {
 	var queryURL = createURL(Types[selectedType], start, end);
-	populateOverlay(queryURL, selectedType);
+	populateOverlay(queryURL, selectedType, 0);
 }
 
 function filterOnDistrict(district) {
@@ -240,8 +294,8 @@ function init () {
 	d3.select("#startDate")
 		.attr("value", defaultStart);
 
-	DEFAULT_TIME_START = defaultStart;
-	DEFAULT_TIME_END = defaultEnd;
+	DEFAULT_TIME_START = defaultStart + "T00:00:00";
+	DEFAULT_TIME_END = defaultEnd + "T23:59:00";
     var style = [
     {
       "featureType": "water",
