@@ -30,7 +30,7 @@ function moveIn(e){
 	});
 	$("#grab").animate({
 		right: "275px"
-	});
+	}, 300);
 	open = true;
 	
 }
@@ -45,7 +45,7 @@ function moveOut(e){
 	});
 	$("#grab").animate({
 		right: "10px"
-	});
+	}, 200);
 	open = false;
 	
 }
