@@ -1,4 +1,4 @@
-var URL = "http://data.seattle.gov/resource/3k2p-39jp.json?$select=latitude,longitude,event_clearance_description,initial_type_description,at_scene_time,event_clearance_date";
+var URL = "http://data.seattle.gov/resource/3k2p-39jp.json?$select=latitude,cad_cdw_id,longitude,event_clearance_description,initial_type_description,at_scene_time,event_clearance_date";
 var TOKEN = "&$$app_token=DpnZlymDFh48LN2JHFUGyM7et"
 var DEFAULT_TIME_START = "";
 var DEFAULT_TIME_END = "";
@@ -87,7 +87,6 @@ Types = {
 
 function createURL(filtered, start, end) {
 	var time;
-	console.log(start + " " + end);
 	if (typeof(start) === 'undefined' || typeof(end) === 'undefined') {
 		time = "(event_clearance_date >='" + DEFAULT_TIME_START  + "' AND event_clearance_date <= '" + DEFAULT_TIME_END + "')";
 	} else {
@@ -104,7 +103,6 @@ function createURL(filtered, start, end) {
 }
 
 function clearOverlay(type) {
-	console.log(type);
 	var hidden = _hiddenMarkers[type];
 	for (var i = 0; i < hidden.length; i++) {
 		hidden[i].setMap(null);
@@ -161,9 +159,17 @@ function populateOverlay(query, queryType) {
 						});
 
 						google.maps.event.addListener(marker, 'click', function(){
-					 	 $attributes = $('#attributes');
-					 	 $attributes.empty();
-					 	 $attributes.append($('<p>').text(d.value.event_clearance_description));
+					 	 $description = $('#desc');
+					 	 $description.empty();
+					 	 $description.append($('<span>').text(d.value.event_clearance_description));
+					 	 $date = $('#dateOfIncident');					 	 
+					 	 $date.empty();
+					 	 var date = d.value.event_clearance_date;
+					 	 var split = date.split("T");
+					 	 
+					 	 $date.append($('<spand>').text(split[0]));
+					 	 $('#toi').empty().append($('<span>').text(d.value.at_scene_time.split("T")[1]));
+					 	 $('#id').empty().append($('<span>').text(d.value.cad_cdw_id));					 	 
 						});
 
 
@@ -180,23 +186,6 @@ function populateOverlay(query, queryType) {
 			}
 		}
 		overlay.setMap(_map);
-
-
-		function shootBlanks(){
-		  var marker;
-		  for(var i = 0; i < locations.length; i++){
-		    var myLatlng = new google.maps.LatLng(locations[i].latitude, locations[i].longitude);
-		      marker = new google.maps.Marker({
-		      position: myLatlng,
-		      map: _map,
-		      icon: 'blank.png'
-		    });
-		    console.log(locations);
-		    google.maps.event.addListener(marker, 'mouseover', function(){
-		      console.log('chill mouseover');
-		    });
-		  }
-		}
 
 	});
 }

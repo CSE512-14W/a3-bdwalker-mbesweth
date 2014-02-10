@@ -50,13 +50,24 @@
           </li>
         </ul>
         <div id="date">
+            <P>Enter Dates With Format: YYYY-MM-DD
             <p>Start Date: <input id="startDate" type="text" onChange="filterOnTime()" value="yyyy-mm-dd"></p>
             <p>End Date: <input id="endDate" type="text" onchange="filterOnTime()" value="yyyy-mm-dd"></p>
-        </div>
-        <div id='attributes'></div>
+        </div>        
       </div>
     </div>
     <div id="map-canvas">
+    </div>
+    <div id="data-info">
+      <div id='attributes'>
+      <h3>Make A Selection To View Data:</h3>
+      <ul style="padding:0px">
+        <li><b>Incident Id: </b><span id="id"></span></li>
+        <li><b>Description: </b><span id="desc"></span></li>
+        <li><b>Date: </b><span id="dateOfIncident"></span> </li>
+        <li><b>Time of Incident: </b><span id='toi'></span></li>
+      </ul>
+      </div>
     </div>
     </body>
 </html>
