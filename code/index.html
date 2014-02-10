@@ -7,13 +7,14 @@
       <link rel="stylesheet" type="text/css" href="main.css">
       <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
       <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-      <script src="http://d3js.org/d3.v3.min.js"></script>
+      <script src="./d3.v3/d3.v3.min.js"></script>
       <script type="text/javascript"
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGL4l6AvrKxqUdGyc2yRvrMDw3cJ4eZKY&sensor=false">
       </script>
       <script type="text/javascript" src="queries.js"></script>
       <script type="text/javascript" src="ui.js"></script>
       <script type="text/javascript">
+
         $(function() {
           $( "#hours" ).slider({
             range:true,
@@ -33,7 +34,14 @@
               } else {
                 hourEnd = ui.values[1];
               }
-              $("#selectedHours").text(hourStart + ":00 to " + hourEnd + ":59");
+
+              var startDate = $("#startDate").val();
+              var endDate = $("#endDate").val();
+              $("#startDateLabel").text(startDate);
+              $("#startTimeLabel").text(hourStart + ":00");
+              $("#endDateLabel").text(endDate);
+              $("#endTimeLabel").text(hourEnd + ":59");
+              
             },
             change: function(event, ui) {
               filterOnHours(event, ui);
@@ -49,6 +57,7 @@
       <img id='grab' alt='grab' src='grab.png'/>
       <div id="control_overlay">
         <h2>Police 911 Calls</h2>
+        <p style="font-size:10pt;"> Select One or More Categories:</p>
         <ul>
           <li>
             <input id="theft" type="checkbox" name="theft" value="theft" onclick="checkboxChecked()">  
@@ -78,15 +87,20 @@
           </li>
           <li>
               <input id='custom' type='checkbox' name='custom' value="custom" onclick="checkboxChecked()">
-              <label for='custom'><input id="customLabel" type="text" name="customLabel" value="custom" onclick="this.value=''" onchange="checkboxChecked()"><span id='c'></span></label> 
+              <label for='custom'><input id="customLabel" type="text" name="customLabel" value="Custom Search" onclick="this.value=''" onchange="checkboxChecked()"><span id='c'></span></label> 
           </li>
         </ul>
-        <div id="date">
-            <P>Enter Dates With Format: YYYY-MM-DD
-            <p>Start Date: <input id="startDate" type="text" onChange="filterOnTime()" value="yyyy-mm-dd"></p>
-            <p>End Date: <input id="endDate" type="text" onchange="filterOnTime()" value="yyyy-mm-dd"></p>
+        <div id="timeFilters">
+          <p style="font-size:10pt;">Select a Date and Time Range:</p>
+          <p style="font-size:8pt;">Date Format: YYYY-MM-DD</p>
+           <p id="selectedHours" style="font-size:10pt;">
+            <span id="startDateLabel"></span> <span id="startTimeLabel"></span> To <br/><span id="endDateLabel"></span> <span id="endTimeLabel"></span>
+          </p>
+          <div id="date">
+              <p>Start Date: <input id="startDate" type="text" onChange="filterOnTime()" value="yyyy-mm-dd"></p>
+              <p>End Date: <input id="endDate" type="text" onchange="filterOnTime()" value="yyyy-mm-dd"></p>
+          </div>
         </div>
-        <p style="font-size:10pt;"> Filter Hours: <span id="selectedHours">00:00 to 23:59</span></p> 
         <div id="hours">
         </div>       
       </div>

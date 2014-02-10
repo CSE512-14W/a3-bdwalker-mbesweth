@@ -225,6 +225,8 @@ function filterOnTime() {
 	for (var i = 0; i < boxes.length; i++) {
 		clearOverlay(boxes[i].id);
 	}
+	$("#startDateLabel").text($("#startDate").val());
+	$("#endDateLabel").text($("#endDate").val());
 	checkboxChecked();
 }
 
@@ -311,6 +313,12 @@ function init () {
 
 	DEFAULT_TIME_START = defaultStart + "T00:00:00";
 	DEFAULT_TIME_END = defaultEnd + "T23:59:00";
+
+	$("#startDateLabel").text(defaultStart);
+	$("#startTimeLabel").text("00:00");
+	$("#endDateLabel").text(defaultEnd);
+	$("#endTimeLabel").text("23:59");
+	
     var style = [
     {
       "featureType": "water",
