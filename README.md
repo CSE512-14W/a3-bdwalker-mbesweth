@@ -18,6 +18,12 @@ Data Set
 --------------------
 The dataset we chose looks at 911 calls to the police department and is updated on a 4 hour basis by the city of Seattle. The calls are separated into groups and then into further subgroups.  Each call has information about the sector, id, time and beat where the call took place.  We thought this would be interesting to see where certain crimes take place in the city and to easily see if there are patterns as to where certain types of crime take place. The data can be obtained from <a href="https://data.seattle.gov/Public-Safety/Seattle-Police-Department-911-Incident-Response/3k2p-39jp">data.seattle.gov</a>.
 
+A Note About the Data
+--------------------
+We did not download the entire data set from the Seattle database as we wanted to allow the user to get up to date information. In addition it was several gigabytes of data.  Instead we use an API to query the database.  In our experience the response time is extremely variable. Sometimes it will return within several hundred milliseconds and other times it will take upwards of 15 seconds.  This causes a delay in which nothing appears to be happening.  We added a small spinner in the bottom right corner of the filter window to indicate querying activity.  This was added in at the last minute and is not terribly elegant but it does provide information about what is taking place on the network. 
+
+We could have also implemented some caching techniques to speed up this process but this required additional logic and we wanted to focus on the primary task of the assignment, the visualization, and not the speed/efficiency.  
+
 Storyboard and Iteractions
 --------------------
 Our storyboard shows the general layout of what we wanted to achieve.  It also displays the different types of interactivity that we wanted the user to have with the data.  We wanted to be sure that the user could select different categories from the types of calls.  The data set is split into groups such as "HOMICIDE", "ASSAULT- OTHER", "ASSAULT-GANG RELATED", and so on.  Grouping these types of calls into categories ensured that the user wasn't overwhelmed by the massive amounts of categories available.  The data goes back as far as 2010 so we thought it would be appropriate to filter based on date as well.  We provided a start and end date to allow for a window to be chosen between any two dates.This allows user to filter based on both the time and the category of the call.  
