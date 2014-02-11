@@ -1,0 +1,25 @@
+We want to geoencode crime data around the Seattle area. Socrata has a great API 
+that allows you to pull data from 911 calls which we wil use. We want
+people to be able to look through different types of crime around Seattle on a
+map. Ideally people would be able to choose different types of crimes to look at
+and also have the ability to filter requests by time. We want to split our 
+nominal variables(types of crime) up into different color dots and display
+them on the map. People should be able to click on the circles to 
+bring up more information about the specific crime. 
+
+This geographic type of display gives us more of an indication of where various
+crimes happen around the city. For instance, if you filter by sex crimes, you should
+essentially only see crimes happening on Aurora. Geo-encoding our data
+effectively gives people an idea of where crime happens around the city. 
+
+We believe searching by neighborhood would also be valuable to this project. It'd
+be interesting to filter strictly by neighborhoods. We are also considering adding
+a statistics tool which would contain info on crimes throughout different
+neighborhoods.
+
+By providing a time filter, people can see how crime shifts by location over time.
+This adds an effective new dimension to our vizualization. Our color coding provides
+continuity over the different types of crime that happen throughout the city.
+
+In the same vain as our color coding, we want to add a heatmap. This might give
+way to more of an understanding of where crimes happen in Seattle.
