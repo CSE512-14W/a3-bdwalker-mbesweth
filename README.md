@@ -65,9 +65,9 @@ Running Instructions
 --------------------
 The code is entirely web based and all the frameworks needed are included in the GitHub repository.  All that should be needed to launch the website is to open index.html in the “code” directory.  Also, it is posted on a UW server at <a href="http://homes.cs.washington.edu/~bdwalker">http://homes.cs.washington.edu/~bdwalker</a>.
 
-Sources
+Tool and Data Locations
 --------------------
-* <a href="http://d3js.org">D3</a></br>
-* <a href="https://developers.google.com/maps/">Google Maps API</a></br>
--<a href="https://data.seattle.gov/Public-Safety/Seattle-Police-Department-911-Incident-Response/3k2p-39jp">Data Set </a></br>
--<a href="http://www.jquery.com">jQuery</a></br>
+* <a href="http://d3js.org">D3</a>
+* <a href="https://developers.google.com/maps/">Google Maps API</a>
+* <a href="https://data.seattle.gov/Public-Safety/Seattle-Police-Department-911-Incident-Response/3k2p-39jp">Data Set </a>
+* <a href="http://www.jquery.com">jQuery</a>
