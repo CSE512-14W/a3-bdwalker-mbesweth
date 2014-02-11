@@ -1,5 +1,10 @@
 Seattle 911 Police Calls 
 ====================
+Group Members
+--------------------
+Brian Walker
+Michael Beswetherick
+
 Tools
 --------------------
 We used the following development tools and frameworks to complete the assignment:
