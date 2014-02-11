@@ -41,7 +41,7 @@ Time Spent
 
 Sources
 --------------------
-<a href="http://d3js.org">D3</a>
-<a href="https://developers.google.com/maps/">Google Maps API</a>
-<a href="https://data.seattle.gov/Public-Safety/Seattle-Police-Department-911-Incident-Response/3k2p-39jp">Data Set </a>
-<a href="http://www.jquery.com">jQuery</a>
+-<a href="http://d3js.org">D3</a>
+-<a href="https://developers.google.com/maps/">Google Maps API</a>
+-<a href="https://data.seattle.gov/Public-Safety/Seattle-Police-Department-911-Incident-Response/3k2p-39jp">Data Set </a>
+-<a href="http://www.jquery.com">jQuery</a>
