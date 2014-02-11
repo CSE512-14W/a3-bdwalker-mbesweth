@@ -38,6 +38,12 @@ Development Process
 
 Time Spent
 --------------------
+The project as a whole took us around 40 hours or so to complete. Longer, if you consider the time it took to find a data set that we wanted to use.  The portions that took us the longest were getting the different frameworks and libraries to work together.  We used D3, Google Maps, SODA 2, and JQuery to implement all of our features.  Getting D3 and Google Maps working together was the hardest hurdle to overcome.  We had to come up with some “creative” solutions to get the functionality that we wanted. It also took a considerable amount of time getting the API for SODA 2 to work properly.  Socrata recently updated their API and their website. There are many aspects of the API documentation that is missing or incomplete.  It took us at least several hours to just get a basic query working.  A rough breakdown is included below:
+
+- Search for data: ~8 hours
+- Storyboarding and brainstorming: ~2 hours
+- Fighting SODA 2 API: ~3 hours
+- Coding, debugging, polishing: ~35 hours
 
 Sources
 --------------------
