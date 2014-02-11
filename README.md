@@ -1,7 +1,13 @@
 Seattle 911 Police Calls 
 ====================
-
-
+Tools
+--------------------
+We used the following development tools and frameworks to complete the assignment:
+- Google Maps API
+- HTML / CSS
+- JQuery
+- SODA2 API
+- D3
 
 Data Set
 --------------------
@@ -20,4 +26,19 @@ The data can also be filtered by date.  We wanted users to be able to select cal
 
 Finally, users can select on individual data points to see information about that call in the lower left hand corner.  This provides information about the type of call, the time of the incident and its id. 
 
+Differences From Storyboard
 --------------------
+
+Our final interactive visualization allows for all of the above with the exception of selecting based on a neighborhood and the heat map.  We were able to find GeoJson data from Zillow that gave us the geometry for the neighborhoods around Seattle. However, the problem was that we decided to use Google Maps to display individual data points with D3.  The svg elements are placed in an overlay on the map.  This overlay is sandwiched in between other layers for the map.  Thus that layer cannot receive mouse events.  We overcame this with data points by putting “invisible” Google Maps markers on all the same locations as the svg elements.  This makes it appear that the svg elements are clickable, when they actually are not.  This would make tracking mouse coordinates to select a particular neighborhood very difficult.  
+
+The other option was to have a drop down that would allow the user to select a neighborhood.  The problem with this is that the API only allows us to bring in data based on square coordinate blocks.  The neighborhoods are obviously not square and thus quite a bit of additional logic would need to be added to filter anything outside of the boundaries.  We decided to hold off on implementing the neighborhood selection to work on other aspects in case we ran out of time.  We did run out of time and thus we were unable to implement it. 
+
+Development Process
+--------------------
+
+Time Spent
+--------------------
+
+Source
+--------------------
+
