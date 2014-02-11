@@ -2,8 +2,8 @@ Seattle 911 Police Calls
 ====================
 Group Members
 --------------------
-Brian Walker
-Michael Beswetherick
+- Brian Walker
+- Michael Beswetherick
 
 Tools
 --------------------
