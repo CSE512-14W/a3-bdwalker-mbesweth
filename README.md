@@ -25,6 +25,8 @@ Sometimes the amount of data can be huge if the date window is very large.  We w
 
 We feel that the mix of color, position and context all work with the data directly to produce an easy to interpret interactive map.
 
+Our storyboard is hand drawn and has no color, since we had not yet decided what color scheme to use.  It is rather bland compared to some others but its primary use, to guide our design and interaction, was successful.  It can be found <a href="https://www.dropbox.com/s/k4s8lg4vby2m6tb/storyboard.pdf">here</a>
+
 Final Visualization
 --------------------
 Our final visualization stays quite close to our initial vision.  We have an overlayed window on the right side of the web page to allow for the user to interact with the different filters. If the user wishes to remove the window form view they can click on the three vertical bars just to the left of the window.  This will cause the window to slide out of view.  
