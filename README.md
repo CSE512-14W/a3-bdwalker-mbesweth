@@ -56,6 +56,10 @@ The project as a whole took us around 40 hours or so to complete. Longer, if you
 - Fighting SODA 2 API: ~3 hours
 - Coding, debugging, polishing: ~35 hours
 
+Running Instructions
+--------------------
+The code is entirely web based and all the frameworks needed are included in the GitHub repository.  All that should be needed to launch the website is to open index.html in the “code” directory.  Also, it is posted on a UW server at <a href="http://homes.cs.washington.edu/~bdwalker">http://homes.cs.washington.edu/~bdwalker</a>.
+
 Sources
 --------------------
 -<a href="http://d3js.org">D3</a></br>
